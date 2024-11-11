@@ -1,1 +1,1 @@
-console.log("projeto iniciado")
+console.log("projeto iniciado!")
