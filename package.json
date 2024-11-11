@@ -1,0 +1,27 @@
+{
+  "name": "ecommecedigitalcollage-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon  ../server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iingridliveira/EcommeceDigitalcollage-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iingridliveira/EcommeceDigitalcollage-backend/issues"
+  },
+  "homepage": "https://github.com/iingridliveira/EcommeceDigitalcollage-backend#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
