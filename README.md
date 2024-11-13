@@ -3,7 +3,7 @@
 
   iniciar o servidor:
 
-        ```bash
+        ```
         
         npm start
 
