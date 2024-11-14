@@ -1,10 +1,16 @@
-  Execute o seguinte comando para 
+## Comandos para Desenvolvimento
 
+### Iniciar o Servidor
 
-  iniciar o servidor:
+Execute o seguinte comando para
 
-        ```
-        
-        npm start
+ iniciar o servidor:
 
-        ```
+```bash
+npm start
+```
+iniciar os testes:
+
+```bash
+npm test
+```
