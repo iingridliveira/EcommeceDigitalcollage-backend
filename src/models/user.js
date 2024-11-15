@@ -9,7 +9,7 @@ export const User = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    fistname: {
+     firstname: {
       type: DataTypes.STRING,
       allowNull: false,
     },
