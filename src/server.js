@@ -8,7 +8,7 @@ const port = 4007;
 
 rota.get("/", (req, res) => {
     const rotaFictia = "olaa mudão doido";
-    res.json({rotaFictia });
+    res.json({rotaFictia});
 });
 
 
