@@ -1,23 +1,13 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../config/conection.js";
-import { Products } from "./Products.js";
-
+import { Product } from "./product.js";
 export const OptionProduct = sequelize.define("Tb_OptionProduct",{
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         },
-    product_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: Products,
-            key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-    },
+ 
     title: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -47,10 +37,13 @@ export const OptionProduct = sequelize.define("Tb_OptionProduct",{
 }
 );
 
+Product.hasMany(OptionProduct, {
+  foreignKey: "product_id",
+});
 sequelize
   .sync()
   .then(() => {
-    console.log("Tabelas sincronizadas.");
+    console.log("Tabelas sincronizadas das opções dos produtos.");
   })
   .catch((err) => {
     console.error("Erro ao sincronizar tabelas:", err);

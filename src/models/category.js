@@ -31,7 +31,7 @@ export const Category = sequelize.define(
 sequelize
   .sync()
   .then(() => {
-    console.log("Tabelas sincronizadas.");
+    console.log("Tabelas sincronizadas Categoria.");
   })
   .catch((err) => {
     console.error("Erro ao sincronizar tabelas:", err);

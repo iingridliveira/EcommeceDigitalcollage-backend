@@ -35,7 +35,7 @@ export const User = sequelize.define(
 sequelize
   .sync()
   .then(() => {
-    console.log("Tabelas sincronizadas.");
+    console.log("Tabelas sincronizadas usuario.");
   })
   .catch((err) => {
     console.error("Erro ao sincronizar tabelas:", err);
