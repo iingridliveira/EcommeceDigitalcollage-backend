@@ -10,12 +10,12 @@ export const Images = sequelize.define("Tb_Images", {
 
     enebled: {
         type: DataTypes.BOOLEAN,
-        autoIncrement: false,
-        defaultValue: 0,
+        allowNull: false,
+        defaultValue: 0
         },
     path: {
         type: DataTypes.STRING,
-        autoIncrement: true,
+        allowNull: true,
         defaultValue: 0,
         },
     },

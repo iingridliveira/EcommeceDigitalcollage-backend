@@ -5,7 +5,7 @@ let server;
 
 // Inicializar o servidor antes dos testes
 beforeAll(() => {
-  server = app.listen(4009, () =>
+  server = app.listen(4000, () =>
     console.log("Servidor iniciado para testes. Disponível na porta 4000")
   );
 });
@@ -19,7 +19,7 @@ test("deve criar um novo usuário na rota POST", async () => {
   const novoUsuario = {
     firstname: "Maria4",
     surname: "Silva",
-    email: "maria5@email.com",
+    email: "maria54@email.com",
     password: "123456",
   };
 
@@ -42,3 +42,4 @@ test("deve criar um novo usuário na rota POST", async () => {
       createdAt: expect.any(String), // Verifica se 'createdAt' é uma string (ISO date)
     }),
   });
+});

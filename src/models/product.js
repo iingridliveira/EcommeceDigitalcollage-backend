@@ -67,6 +67,7 @@ Category.belongsToMany(Product, {
   constraints: true,
 });
 
+
 sequelize
   .sync()
   .then(() => {
