@@ -56,6 +56,7 @@ Product.belongsToMany(Category, {
     model: CategoryProduct,
   },
   foreignKey: "product_id",
+   as: "productsInCategory",
   constraints: true,
 });
 
@@ -64,9 +65,10 @@ Category.belongsToMany(Product, {
     model: CategoryProduct,
   },
   foreignKey: "category_id",
+   as: "productsInCategory",
   constraints: true,
-});
 
+});
 
 sequelize
   .sync()
