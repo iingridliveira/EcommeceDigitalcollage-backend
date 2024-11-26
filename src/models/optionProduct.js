@@ -39,6 +39,11 @@ export const OptionProduct = sequelize.define("Tb_OptionProduct",{
 
 Product.hasMany(OptionProduct, {
   foreignKey: "product_id",
+  as: "options", // Alias para facilitar a associação
+});
+
+OptionProduct.belongsTo(Product, {
+  foreignKey: "product_id",
 });
 sequelize
   .sync()

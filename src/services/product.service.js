@@ -1,6 +1,7 @@
 import { Product } from "../models/product.js";
 import { Category } from "../models/category.js";
 import { Images } from "../models/images.js";
+import { OptionProduct } from "../models/optionProduct.js";
 import { Op } from "sequelize";
 
 export class ProductService {
@@ -13,7 +14,8 @@ export class ProductService {
     price,
     price_with_discount,
     category_ids,
-    images = [], // Recebendo imagens como array de objetos
+    images = [],
+    options = [],
   }) {
     try {
       // Cria o produto
@@ -42,23 +44,37 @@ export class ProductService {
 
       // Associa as categorias ao produto
       await product.addProductsInCategory(categories);
- 
+
       // Cria e associa imagens ao produto, se existirem
       if (images.length > 0) {
-       const imageInstances = images.map((img) => ({
-         product_id: product.id,
-         enabled: product.enabled, // ou img.enabled, se enviado
-         path: img.path, // Usa diretamente o valor fornecido no JSON
-         type: img.type,
-       }));
-       console.log(imageInstances)
+        const imageInstances = images.map((img) => ({
+          product_id: product.id,
+          enabled: img.enabled ?? true, // Se 'enabled' não for enviado, assume 'true'
+          path: img.path, // Usa diretamente o valor fornecido no JSON
+          type: img.type,
+        }));
+        console.log(imageInstances);
 
-        
-
-        await Images.bulkCreate(imageInstances); // Criação em lote
+        // Criação em lote das imagens
+        await Images.bulkCreate(imageInstances);
       }
 
-      // Retorna o produto com as categorias e imagens associadas
+      // Criação e associação das opções ao produto
+      if (options.length > 0) {
+        const optionInstances = options.map((opt) => ({
+          product_id: product.id,
+          title: opt.title,
+          shape: opt.shape ?? "square", // Se 'shape' não for fornecido, assume 'square'
+          radius: opt.radius ?? 0, // Se 'radius' não for fornecido, assume 0
+          type: opt.type ?? "text", // Se 'type' não for fornecido, assume 'text'
+          values: JSON.stringify(opt.values), // Armazena os valores como uma string JSON
+        }));
+     console.log(optionInstances)
+        // Cria as opções no banco de dados
+        await OptionProduct.bulkCreate(optionInstances);
+      }
+
+      // Retorna o produto com as categorias, imagens e opções associadas
       const productWithDetails = await Product.findByPk(product.id, {
         include: [
           {
@@ -67,7 +83,11 @@ export class ProductService {
           },
           {
             model: Images,
-            as: "images",
+            as: "images", // Alias usado para associar as imagens
+          },
+          {
+            model: OptionProduct,
+            as: "options", // Alias usado para associar as opções
           },
         ],
       });
