@@ -13,6 +13,7 @@ const createProduct = async (req, res) => {
       price,
       price_with_discount,
       category_ids,
+      images,
     } = req.body;
 
   
@@ -26,6 +27,8 @@ const createProduct = async (req, res) => {
       price,
       price_with_discount,
       category_ids,
+      images,
+      
     });
 
     return res.status(201).json({
