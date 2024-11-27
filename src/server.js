@@ -2,7 +2,7 @@
 import { testConection } from "../tests/testConection.js";
 import { app } from "./app.js";
 
-const port = 4008;
+const port = 4007;
 
 app.listen(port, () => {
     testConection();

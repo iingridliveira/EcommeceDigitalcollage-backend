@@ -13,7 +13,7 @@ const createUser = async (req, res) => {
     );
 
     return res.status(201).json({
-      message: "User criado ",
+      message: "User criado com sucesso",
       newUser,
     });
   } catch (error) {

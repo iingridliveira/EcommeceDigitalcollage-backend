@@ -5,6 +5,7 @@ import { createUser } from "../controllers/user.controller.js";
 
 export const userRouter = express.Router();
 
-userRouter.post("/register", createUser);
+userRouter.post("/user", createUser);
+
 
 

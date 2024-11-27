@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../config/conection.js";
-
+import { Category } from "./category.js";
+import { CategoryProduct } from "./categoryProduct.js";
 export const Product = sequelize.define(
     "Tb_Product",
     {
@@ -49,10 +50,30 @@ export const Product = sequelize.define(
     }
 );
 
+
+Product.belongsToMany(Category, {
+  through: {
+    model: CategoryProduct,
+  },
+  foreignKey: "product_id",
+   as: "productsInCategory",
+  constraints: true,
+});
+
+Category.belongsToMany(Product, {
+  through: {
+    model: CategoryProduct,
+  },
+  foreignKey: "category_id",
+   as: "productsInCategory",
+  constraints: true,
+
+});
+
 sequelize
   .sync()
   .then(() => {
-    console.log("Tabelas sincronizadas.");
+    console.log("Tabelas sincronizadas produto.");
   })
   .catch((err) => {
     console.error("Erro ao sincronizar tabelas:", err);
