@@ -32,4 +32,4 @@ const createCategory = async (req, res) => {
     }
   }
 };
-export {createCategory};
+export { createCategory };

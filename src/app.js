@@ -12,5 +12,9 @@ rota.get("/", (req, res) => {
 });
 
 app.use(express.json());
+app.use((req, res, next) => {
+  res.setHeader("Content-Type", "application/json");
+  next();
+});
 app.use(rota);
-app.use(routes)
+app.use(routes);
