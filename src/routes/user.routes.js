@@ -1,11 +1,12 @@
 import express from "express"
-import { createUser } from "../controllers/user.controller.js";
+import { createUser, login } from "../controllers/user.controller.js";
 
 
 
 export const userRouter = express.Router();
 
 userRouter.post("/user", createUser);
+userRouter.post("/user/token", login);
 
 
 
