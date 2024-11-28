@@ -8,7 +8,7 @@ export const userRouter = express.Router();
 
 userRouter.post("/user", createUser);
 userRouter.post("/user/token", login);
-userRouter.put("/user/:id" , tokenCheck, updateUser);
+userRouter.put("/user/:id" ,  tokenCheck, updateUser);
 userRouter.delete("/user/:id",tokenCheck,  deleteUser );
 
 
