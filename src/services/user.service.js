@@ -42,11 +42,24 @@ export class UserServices {
       const token = jwt.sign({ userId: user.id, email }, "your-secret-key", {
         expiresIn: "1h",
       });
-      console.log(token)
+      console.log(token);
       return { token };
     } catch (error) {
       console.error("Erro ao fazer login:", error);
       return { error: "Erro ao fazer login" };
     }
+  }
+  async updateServer(id, firstname, surname, email) {
+    const updateUser = await User.update(
+      { firstname, surname, email },
+      { where: { id } }
+    );
+    return updateUser;
+  }
+  async deliteServer(id) {
+    const deliteUser = await User.destroy(
+      { where: { id } }
+    );
+    return deliteUser;
   }
 }

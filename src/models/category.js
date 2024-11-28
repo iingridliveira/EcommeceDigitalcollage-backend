@@ -20,7 +20,7 @@ export const Category = sequelize.define(
         use_in_menu: {
             type: DataTypes.BOOLEAN,
             allowNull: true,
-            defaultValue: 0,
+            defaultValue: null,
         },
     },
     {
