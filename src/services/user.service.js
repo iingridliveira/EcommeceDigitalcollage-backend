@@ -1,7 +1,7 @@
 import { User } from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from 'jsonwebtoken';
-
+import { configDotenv } from "dotenv";
 export class UserServices {
   async registerService(firstname, surname, email, password) {
     try {
@@ -39,7 +39,7 @@ export class UserServices {
         return { error: "Senha inválida" };
       }
 
-      const token = jwt.sign({ userId: user.id, email }, "your-secret-key", {
+      const token = jwt.sign({ userId: user.id, email },   process.env.KEY, {
         expiresIn: "1h",
       });
       console.log(token);

@@ -1,6 +1,9 @@
 import { ProductService } from "../services/product.service.js";
+import { ProductServiceRUD } from "../services/productRUD.service.js";
+import { handleError } from "./utils/error.js";
 
 const instanciaServico = new ProductService();
+const instaciePtoductsever = new ProductServiceRUD();
 
 const createProduct = async (req, res) => {
   try {
@@ -37,13 +40,48 @@ const createProduct = async (req, res) => {
       product: newProduct,
     });
   } catch (error) {
-    // Tratamento de erros
-    console.error("Erro ao criar produto:", error.message);
+    handleError(error, res) // Tratamento de erros
+  } 
+};
+const updateProduct= async (req, res) => {
+  try {
+    const {id} = req.params;
+    const {
+      enabled,
+      name,
+      slug,
+      stock,
+      description,
+      price,
+      price_with_discount,
+      category_ids,
+      images,
+      options,
+    } = req.body;
 
-    res.status(500).json({
-      error: "Erro interno no servidor: " + error.message,
+    const newProductupdate = await instanciaServico.createProduct({
+      id,
+      enabled,
+      name,
+      slug,
+      stock,
+      description,
+      price,
+      price_with_discount,
+      category_ids,
+      images,
+      options,
     });
+
+    return res.status(201).json({
+      message: "Produto atualizado com suceesso com sucesso",
+      product: newProductupdate,
+    });
+  } catch (error) {
+    handleError(error, res); // Tratamento de erros
   }
 };
 
-export { createProduct };
+
+
+export { createProduct, updateProduct };
