@@ -33,6 +33,7 @@ const createCategory = async (req, res) => {
   }
 };
 
+
 const updateCategory = async (req, res) => {
    try {
     const {id} = req.params;
@@ -63,3 +64,4 @@ const updateCategory = async (req, res) => {
 }
 
 export {createCategory, updateCategory};
+

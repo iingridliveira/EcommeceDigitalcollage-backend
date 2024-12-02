@@ -29,7 +29,7 @@ export class ProductService {
         price_with_discount,
       });
 
-      // Busca as categorias correspondentes aos IDs fornecidos
+      // Busca categorias correspondentes aos IDs fornecidos
       const categories = await Category.findAll({
         where: {
           id: {
@@ -42,39 +42,36 @@ export class ProductService {
         throw new Error("Algumas categorias fornecidas não existem.");
       }
 
-      // Associa as categorias ao produto
+      // Associa categorias ao produto
       await product.addProductsInCategory(categories);
 
       // Cria e associa imagens ao produto, se existirem
       if (images.length > 0) {
         const imageInstances = images.map((img) => ({
           product_id: product.id,
-          enabled: img.enabled ?? true, // Se 'enabled' não for enviado, assume 'true'
-          path: img.path, // Usa diretamente o valor fornecido no JSON
+          enabled: img.enabled ?? true, // Valor padrão para 'enabled'
+          path: img.path, // Caminho da imagem
           type: img.type,
         }));
-        console.log(imageInstances);
-
         // Criação em lote das imagens
         await Images.bulkCreate(imageInstances);
       }
 
-      // Criação e associação das opções ao produto
+      // Cria e associa opções ao produto, se existirem
       if (options.length > 0) {
         const optionInstances = options.map((opt) => ({
           product_id: product.id,
           title: opt.title,
-          shape: opt.shape ?? "square", // Se 'shape' não for fornecido, assume 'square'
-          radius: opt.radius ?? 0, // Se 'radius' não for fornecido, assume 0
-          type: opt.type ?? "text", // Se 'type' não for fornecido, assume 'text'
-          values: JSON.stringify(opt.values), // Armazena os valores como uma string JSON
+          shape: opt.shape ?? "square", // Valor padrão para 'shape'
+          radius: opt.radius ?? 0, // Valor padrão para 'radius'
+          type: opt.type ?? "text", // Valor padrão para 'type'
+          values: JSON.stringify(opt.values), // Armazena os valores como JSON
         }));
-     console.log(optionInstances)
-        // Cria as opções no banco de dados
+        // Criação em lote das opções
         await OptionProduct.bulkCreate(optionInstances);
       }
 
-      // Retorna o produto com as categorias, imagens e opções associadas
+      // Retorna o produto com categorias, imagens e opções associadas
       const productWithDetails = await Product.findByPk(product.id, {
         include: [
           {
@@ -83,11 +80,11 @@ export class ProductService {
           },
           {
             model: Images,
-            as: "images", // Alias usado para associar as imagens
+            as: "images",
           },
           {
             model: OptionProduct,
-            as: "options", // Alias usado para associar as opções
+            as: "options",
           },
         ],
       });
