@@ -1,7 +1,9 @@
 
-# Título do Projeto
+# Projeto para Geração Tech.
 
-Uma breve descrição sobre o que esse projeto faz e para quem ele é
+
+
+Backend de uma aplicação ecommeece  instruida pelo curso geração tech
 
 
 ## Deploy
@@ -543,13 +545,13 @@ project-root/
 
 ## Referência
 
- - [Awesome Readme Templates](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
- - [Awesome README](https://github.com/matiassingers/awesome-readme)
- - [How to write a Good readme](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
+ - [ORIENTAÇÕES PARA O PROJETO BACK-END](https://github.com/digitalcollegebr/projeto-backend)
+ - [backend explicações](https://dust-starburst-c57.notion.site/Desenvolvimento-Back-End-JavaScript-5038d9fff41d45688f698f7d88a5a19e
+)
 
 
 
 ## Autores
 
-- [@octokatherine](https://www.github.com/octokatherine)
+- [@iingridliveira](https://github.com/iingridliveira)
 
