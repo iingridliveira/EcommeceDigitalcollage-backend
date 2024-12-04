@@ -30,17 +30,6 @@ Para rodar os testes, rode o seguinte comando
 ## Documentação da API
 
 
-
-
-## Funcionalidades
-
-- Temas dark e light
-- Preview em tempo real
-- Modo tela cheia
-- Multiplataforma
-
-
-
 ## Tecnologias usadas
 
 
