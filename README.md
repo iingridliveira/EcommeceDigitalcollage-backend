@@ -222,7 +222,7 @@ project-root/
 
 
 <details>
-  <summary><strong>Requisito 03 - Criar endpoint de cadastro de categoria</strong></summary><br>
+
 
 - POST /v1/category
 
@@ -268,7 +268,7 @@ project-root/
 
 </details>
 
-## Seção 04 - Implementar endpoints para o CRUD de produtos
+## roatas de  endpoints para o CRUD de produtos
 
 <details>
 
