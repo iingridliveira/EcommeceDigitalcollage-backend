@@ -148,7 +148,7 @@ project-root/
 <details>
  
 
-- GET /v1/category/search
+- GET /v1/category/search/search?limit=12&page=1&fields=name,slug&use_in_menu=true
 
 **Query params**
   - `limit=-1`
@@ -268,7 +268,7 @@ project-root/
 <details>
 
 
-- GET /v1/product/search
+- GET /v1/product/search?limit=30&page=2&fields=name
 
 **Query params**
   - `limit=30`
