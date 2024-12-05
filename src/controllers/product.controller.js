@@ -20,8 +20,6 @@ const createProduct = async (req, res) => {
       options,
     } = req.body;
 
-  
-
     const newProduct = await instanciaServico.createProduct({
       enabled,
       name,
@@ -40,12 +38,13 @@ const createProduct = async (req, res) => {
       product: newProduct,
     });
   } catch (error) {
-    handleError(error, res) // Tratamento de erros
-  } 
+    handleError(error, res); // Tratamento de erros
+  }
 };
-const updateProduct= async (req, res) => {
+
+const updateProduct = async (req, res) => {
   try {
-    const {id} = req.params;
+    const { id } = req.params;
     const {
       enabled,
       name,
@@ -59,7 +58,7 @@ const updateProduct= async (req, res) => {
       options,
     } = req.body;
 
-    const newProductupdate = await instanciaServico.createProduct({
+    const updatedProduct = await instaciePtoductsever.updateServer(
       id,
       enabled,
       name,
@@ -70,18 +69,25 @@ const updateProduct= async (req, res) => {
       price_with_discount,
       category_ids,
       images,
-      options,
-    });
+      options
+    );
 
-    return res.status(201).json({
-      message: "Produto atualizado com suceesso com sucesso",
-      product: newProductupdate,
+    return res.status(200).json({
+      message: "Produto atualizado com sucesso",
+      product: updatedProduct,
     });
   } catch (error) {
     handleError(error, res); // Tratamento de erros
   }
 };
 
+const getAllproducts = async (req, res) => {
+  try {
+    const result = await instaciePtoductsever.getALLServer(req.query);
+    return res.status(200).json(result);
+  } catch (error) {
+    handleError(error, res);
+  }
+};
 
-
-export { createProduct, updateProduct };
+export { createProduct, updateProduct, getAllproducts };
