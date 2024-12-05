@@ -8,6 +8,12 @@ Backend de uma aplicação ecommeece  instruida pelo curso geração tech
 
 ## Deploy
 
+Para fazer instalar as dependencia 
+```bash
+  npm  i
+```
+
+
 Para fazer o deploy desse projeto rode
 
 ```bash
