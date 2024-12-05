@@ -1,13 +1,16 @@
-import express from "express"
-import { createProduct, updateProduct } from "../controllers/product.controller.js";
+import express from "express";
+import {
+  createProduct,
+  getAllproducts,
+  updateProduct,
+} from "../controllers/product.controller.js";
 import { tokenCheck } from "../middleware/authUser.middleware.js";
 
 export const productRouter = express.Router();
 
-
-productRouter.get("/product/search");
-productRouter.get("product/:id");
+productRouter.get("/product/search", getAllproducts);
+productRouter.get("/product/:id");
 // routes need autenticate user
-productRouter.put("product/:id", updateProduct);
+productRouter.put("/product/:id",tokenCheck, updateProduct);
 productRouter.delete("/product/:id");
-productRouter.post("/product", createProduct);
+productRouter.post("/product",tokenCheck, createProduct);
