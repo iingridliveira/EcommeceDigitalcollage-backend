@@ -19,8 +19,20 @@ Para fazer o deploy desse projeto rode
 ```bash
   npm  start
 ```
-
-
+- [Link](https://ecommecedigitalcollage-backend.onrender.com)
+- (https://ecommecedigitalcollage-backend.onrender.com)
+  
+Para se conectar com o banco Mysql use
+```
+DB_DATABASE="nome do banco de dados"
+DB_USERNAME="tipo ou nome do usuário do banco"
+DB_PASSWORD="seha do banco"
+DB_HOST="onde está localozado o banco a host do banco"
+DB_DIALECT="o tipo de banco nesse caso  foi ultilizado mysql"
+DB_PORT= porta em que banco está
+KEY= "chave de altenticão e verificação da api "
+```
+Para fazer o deploy do banco de dados usamos a platafoma railway [Link]( https://railway.app) usamos a url pública disponibilizada e encachamos de acordo como que precisavamos
 ## Rodando os testes
 
 Para rodar os testes, rode o seguinte comando
