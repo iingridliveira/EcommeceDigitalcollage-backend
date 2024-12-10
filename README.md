@@ -22,7 +22,7 @@ Para fazer o deploy desse projeto rode
 - [Link](https://ecommecedigitalcollage-backend.onrender.com)
 - (https://ecommecedigitalcollage-backend.onrender.com)
   
-Para se conectar com o banco Mysql use
+Para se conectar com o banco Mysql use .env.exemple
 ```
 DB_DATABASE="nome do banco de dados"
 DB_USERNAME="tipo ou nome do usuário do banco"
