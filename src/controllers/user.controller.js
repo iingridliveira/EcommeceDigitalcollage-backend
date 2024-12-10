@@ -66,6 +66,25 @@ const deleteUser = async (req, res) => {
     handleError(error, res);
   }
 };
+const getUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await instaciaservece.getserver(id);
+
+    if (user && user.length > 0) {
+      return res.status(200).json({
+        message: "usuário(a) encontrado(a)",
+        user
+      });
+    } else {
+      return res.status(404).json({
+        message: "usuário(a)  não encontrado(a)",
+      });
+    }
+  } catch (error) {
+    handleError(error, res);
+  }
+};
 
 
-export { createUser, login, updateUser, deleteUser };
+export { createUser, login, updateUser, deleteUser, getUser };
