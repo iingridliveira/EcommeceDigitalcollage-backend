@@ -39,7 +39,7 @@ export class UserServices {
         return { error: "Senha inválida" };
       }
 
-      const token = jwt.sign({ userId: user.id, email },   process.env.KEY, {
+      const token = jwt.sign({ userId: user.id, email }, process.env.KEY, {
         expiresIn: "1h",
       });
       console.log(token);
@@ -57,9 +57,11 @@ export class UserServices {
     return updateUser;
   }
   async deliteServer(id) {
-    const deliteUser = await User.destroy(
-      { where: { id } }
-    );
+    const deliteUser = await User.destroy({ where: { id } });
     return deliteUser;
+  }
+  async getserver(id) {
+    const idUser = await User.findAll({ where: { id } });
+    return idUser;
   }
 }
