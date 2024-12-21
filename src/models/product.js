@@ -65,9 +65,8 @@ Category.belongsToMany(Product, {
     model: CategoryProduct,
   },
   foreignKey: "category_id",
-   as: "productsInCategory",
+  as: "productsForCategory",
   constraints: true,
-
 });
 
 sequelize

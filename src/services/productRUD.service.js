@@ -2,7 +2,7 @@ import { Product } from "../models/product.js";
 import { Images } from "../models/images.js";
 import { OptionProduct } from "../models/optionProduct.js";
 import { Category } from "../models/category.js";
-
+import { Op } from "sequelize";
 // Service of read, delete, and update
 export class ProductServiceRUD {
   async updateServer(
@@ -90,73 +90,68 @@ export class ProductServiceRUD {
     } catch (error) {}
   }
 
-  async getALLServer(queryParams) {
-    const {
-      limit = 12,
-      page = 1,
-      fields,
-      match,
-      category_ids,
-      "price-range": priceRange,
-      ...options
-    } = queryParams;
-
+  async getALLServer({
+    limit = 12,
+    page = 1,
+    fields,
+    match,
+    category_ids,
+    "price-range": priceRange,
+    ...options
+  }) {
     try {
+      // Configuração de paginação
+      const paginationLimit = limit === "-1" ? null : parseInt(limit, 10);
+      const offset = paginationLimit
+        ? (parseInt(page, 10) - 1) * paginationLimit
+        : null;
+
+      // Configuração de seleção de campos
+      const attributes = fields ? fields.split(",") : undefined;
+
+      // Filtros
       const filters = {};
 
-      // Filtro por match (nome ou descrição)
       if (match) {
-        filters["$or"] = [
-          { name: { $like: `%${match}%` } },
-          { description: { $like: `%${match}%` } },
+        filters[Op.or] = [
+          { name: { [Op.like]: `%${match}%` } },
+          { description: { [Op.like]: `%${match}%` } },
         ];
       }
 
-      // Filtro por categorias
       if (category_ids) {
         const categories = category_ids.split(",").map(Number);
-        filters["category_ids"] = { $overlap: categories };
+        filters["$productsInCategory.category_id$"] = { [Op.in]: categories };
       }
 
-      // Filtro por faixa de preços
       if (priceRange) {
         const [min, max] = priceRange.split("-").map(Number);
-        filters["price"] = { $between: [min, max] };
+        filters.price = { [Op.between]: [min, max] };
       }
 
-      // Filtro por opções
-      Object.keys(options).forEach((key) => {
-        if (key.startsWith("option[")) {
+      const newFilters = Object.keys(options)
+        .filter((key) => key.startsWith("option["))
+        .map((key) => {
           const optionId = key.match(/\d+/)[0];
           const optionValues = options[key].split(",");
-          filters["$and"] = filters["$and"] || [];
-          filters["$and"].push({
+          return {
             "$options.id$": optionId,
-            "$options.values$": { $overlap: optionValues },
-          });
-        }
-      });
+            "$options.values$": { [Op.overlap]: optionValues },
+          };
+        });
 
-      // Paginação
-      const pagination = {};
-      if (Number(limit) !== -1) {
-        pagination.limit = Number(limit);
-        pagination.offset = (Number(page) - 1) * Number(limit);
-      }
+      filters[Op.and] = newFilters; // Novo array atribuído a "filters"
 
-      // Seleção de campos
-      const attributes = fields ? fields.split(",") : undefined;
-
+      // Query no banco de dados
       const products = await Product.findAndCountAll({
         where: filters,
         attributes,
         include: [
           {
             model: Category,
-            attributes: category_ids,
+            attributes: [],
             as: "productsInCategory",
           },
-
           {
             model: Images,
             attributes: ["id", "path"],
@@ -168,14 +163,16 @@ export class ProductServiceRUD {
             as: "options",
           },
         ],
-        ...pagination,
+        limit: paginationLimit,
+        offset,
       });
 
+      // Retorno
       return {
         data: products.rows,
         total: products.count,
-        limit: Number(limit),
-        page: Number(limit) === -1 ? null : Number(page),
+        limit: paginationLimit,
+        page: paginationLimit === null ? null : page,
       };
     } catch (error) {
       console.error("Error fetching products:", error);
